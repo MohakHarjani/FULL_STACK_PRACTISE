@@ -1,0 +1,11 @@
+.navbar {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: aqua;
+    font-size: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: blue;
+}

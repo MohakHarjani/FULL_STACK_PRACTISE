@@ -1,0 +1,10 @@
+.navbar {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 18px;
+    margin-left: 200px;
+}
+
+h2 {
+    text-align: center;
+}
