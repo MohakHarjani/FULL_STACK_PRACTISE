@@ -1,0 +1,110 @@
+<form (ngSubmit)="addBook()" #bookForm=ngForm>
+
+
+  <!-- =========================================================================================== -->
+  <div class='form-group'>
+
+    <label for="bookId">
+      Book Id:
+    </label>
+
+    <input type="number" [(ngModel)]="myBook.bookId" name="id" required id="bookId" #id="ngModel" disabled
+      class='form-control' />
+
+
+    <div [hidden]="id.valid||id.pristine" class='alert alert-danger'>
+      BookId cannot be empty.
+    </div>
+  </div>
+
+  <!-- ======================================================================================== -->
+  <div class='form-group'>
+    <label for="bookName">
+      Book Name :
+    </label>
+
+    <input type="text" [(ngModel)]="myBook.bookName" name="bookName" minlength="3" pattern="^[a-zA-Z_ ]+$" required
+      id="bookName" #bookName="ngModel" class='form-control' />
+
+
+    <!-- "|| bookPrice.pristine" -->
+    <div [hidden]="bookName.valid" class='alert alert-danger'>
+      Book Name is invalid
+      <div>
+        @if(bookName.errors?.['required'])
+        {
+        Book name is required
+        }
+        @if(bookName.errors?.['minlength'])
+        {
+        Book name should have minLength = {{bookName.errors?.['minlength'] | json}}
+        }
+        @if(bookName.errors?.['pattern'])
+        {
+        Pattern not met....{{bookName.errors?.['pattern'] | json}}
+
+        }
+      </div>
+
+    </div>
+  </div>
+  <!-- ========================================================================================================= -->
+
+  <div class='form-group'>
+    <label for="bookPrice">
+      Book Price :
+    </label>
+    <input type="number" [(ngModel)]="myBook.bookPrice" name="bookPrice" required id="bookPrice" #bookPrice="ngModel"
+      min="100" class='form-control' />
+
+
+    
+    <!-- "|| bookPrice.pristine" -->
+    <div [hidden]="bookPrice.valid" class='alert alert-danger'>
+      Book Price cannot be empty.
+
+      @if (bookPrice.errors?.['min'])
+      {
+      Price is below minPrice {{bookPrice.errors?.['min'] | json}}
+      }
+    </div>
+  </div>
+  <!-- ========================================================================================================= -->
+  <div class='form-group'>
+    <input type='submit' class='btn btn-success' [disabled]="!bookForm.form.valid" value='Add Book'>
+    <div [hidden]="bookForm.valid" class='alert alert-danger'>
+      Book is invalid (Cannot Submit)
+
+    </div>
+  </div>
+</form>
+
+<hr>
+<!--==================================================================================================-->
+
+
+<!--==================================================================================================-->
+
+<h3>Current Book Details</h3>
+@if (myBook.bookId != 0 || myBook.bookName != '' || myBook.bookPrice != 0)
+{
+<div>
+  Book Id : {{myBook.bookId}},
+  Book Name : {{myBook.bookName}},
+  Book Price: {{myBook.bookPrice}}
+</div>
+
+}
+@else {
+<p>Book details not entered yet....</p>
+}
+<button (click)='goList()'>See List</button>
+<hr>
+
+<!--==================================================================================================-->
+<h3>Status</h3>
+
+<p>{{status}}</p>
+
+<hr>
+<!--==================================================================================================-->

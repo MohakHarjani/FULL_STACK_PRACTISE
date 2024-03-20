@@ -1,0 +1,47 @@
+
+<h3>Book List</h3>
+<button (click)="fetchBooks()">Fetch Books</button>
+
+
+
+@if (bookList.length > 0)
+{
+
+<table>
+  <tr>
+    <th>Book Id</th>
+    <th>Book Name</th>
+    <th>Book Price</th>
+  </tr>
+
+  <!-- <input type = 'text' [(ngMm)] -->
+  @for (book of bookList; track book.bookId) {
+  <tr>
+   
+    <td>{{book.bookId}}</td>
+    <td>{{book.bookName}}</td>
+    <td>{{book.bookPrice}}</td>
+     <td><button (click)= 'deleteBook(book.bookId)'>Delete</button></td>
+    <td><button (click) = 'populateEdittedBook(book)'>Edit</button></td>
+  </tr>
+
+  }
+
+</table>
+}
+<!--====================================================================================================================-->
+@if(isEditting)
+{
+<h3>Edit Form</h3>
+
+<label for='bookName'>Book Name : </label>
+<input id='bookName' type='text' [(ngModel)] = 'edittedBook.bookName'>
+
+<label for='bookPrice'>Book Price : </label>
+<input id='bookPrice' type='number' [(ngModel)] = 'edittedBook.bookPrice'>
+
+<button (click) = 'editBook()'>Save</button>
+<button (click) = 'changeEditStatus(false)'>Cancel</button>
+}
+
+<!--====================================================================================================================-->
